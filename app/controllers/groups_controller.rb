@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
+  before_action :authenticate_user! , only: [:new]
   def index
-    @groups =Group.all 
+    @groups =Group.all
   end
 
   def new
@@ -11,7 +12,7 @@ class GroupsController < ApplicationController
   	@group = Group.new(group_params)
   	if @group.save
   		redirect_to groups_path
-  	else 
+  	else
   		render :new
   	end
   end
@@ -39,10 +40,10 @@ class GroupsController < ApplicationController
   	flash[:alert] = "Group deleted"
   	redirect_to groups_path
   end
-  private 
+  private
 
   def group_params
   	params.require(:group).permit(:title, :description)
-  	
+
   end
 end
